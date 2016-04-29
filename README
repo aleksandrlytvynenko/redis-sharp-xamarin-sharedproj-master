@@ -1,0 +1,34 @@
+This is a crude proof of concept connecting to Redis using Xamarin.iOS and 
+Xamarin.Droid through use of a shared project.  The shared project is 
+based on a Fork of Miguel de Icaza's redis-sharp and rfranke's pubsub addition to it.
+
+To do quick test…
+
+Get the IP address of your local machine. Set the host variable to your IP address.  
+
+Run redis-server
+
+Subscribe to a channel called foo…
+Run redis-cli:  SUBSCRIBE foo
+
+Monitor your redis server’s activity…
+Run another redis-cli:  MONITOR
+
+When you run the iOS / Android project they set a key value pair identifying themselves “iOS / Android was here”, then they subscribe to a channel called foo.  You can see that in the cli running MONITOR.
+
+See if the app receives a message…
+Run another redis-cli:  PUBLISH foo “CLI was here”
+
+You should see this message logged in your Application Output window in Xamarin Studio.
+
+---------------------------------------------------------------------
+
+This is a C#/.NET client binding for the Redis server:
+
+     http://code.google.com/p/redis/
+
+The code is licensed under the same terms that the Redis server is, the new BSD license
+
+The binding lives in the redis-sharp.cs file, a sample test file can be found on test.cs
+
+Miguel de Icaza, November 2009
