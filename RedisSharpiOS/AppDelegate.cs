@@ -23,29 +23,14 @@ namespace RedisSharpiOS
 			Window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 			// If you have defined a root view controller, set it here:
-			Window.RootViewController = new UIViewController();
+			Window.RootViewController = new RedisClientViewController();
 
 			// make the window visible
 			Window.MakeKeyAndVisible ();
 
 			// replace with Redis server IP address.  I found simulators
 			// don't like localhost
-			string host = "192.168.1.111";
-			Redis r = new Redis (host);
 
-			// set some values in redis
-			//r.Set ("foo", "iOS was here");
-
-			// subscribe to channel foo
-			RedisSub rs = new RedisSub(r.Host, r.Port);
-
-			RedisSubEventHandler eventHandler = new RedisSubEventHandler (MessageReceived);
-			rs.MessageReceived += eventHandler;
-			rs.SubscribeReceived += eventHandler;
-			rs.UnsubscribeReceived += eventHandler;
-
-			// subscribe to channel foo
-			rs.Subscribe ("foo");
 
 			
 
@@ -53,18 +38,7 @@ namespace RedisSharpiOS
 		}
 
 		// log out messages received
-		static void MessageReceived (object sender, RedisSubEventArgs e)
-		{
-			switch (e.kind) {
-			case "psubscribe":
-			case "punsubscribe":
-				Console.WriteLine ("Received {0}: {1}", e.kind, e.message);
-				break;
-			default:
-				Console.WriteLine ("Received {0}: {1}", e.kind, e.message);
-				break;
-			}
-		}
+
 
 		public override void OnResignActivation (UIApplication application)
 		{

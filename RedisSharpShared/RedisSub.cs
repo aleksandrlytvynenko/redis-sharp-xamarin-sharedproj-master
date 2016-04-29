@@ -64,6 +64,12 @@ namespace RedisSharp {
 		{
 			return SendSubCommand ("PUNSUBSCRIBE", patterns);
 		}
+
+		public bool Publish ()
+		{
+			var patterns = new string[]{ @"foo", "\"Test10\"" };
+			return SendSubCommand ("PUBLISH", patterns);
+		}
 		#endregion
 
 		#region Event handlers

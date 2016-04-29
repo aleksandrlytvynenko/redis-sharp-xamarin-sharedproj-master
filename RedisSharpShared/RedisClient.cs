@@ -267,7 +267,7 @@ namespace RedisSharp {
 				return false;
 
 			try {
-				socket.Send (r);
+				var result = socket.Send (r);
 			} catch (SocketException){
 				// timeout;
 				socket.Close ();
